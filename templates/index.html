@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calories Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Calories Burned Prediction</h2>
+        <form id="caloriesForm">
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="age">Age:</label>
+                <input type="number" id="age" name="age" required>
+            </div>
+            <div class="form-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" name="height" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" name="weight" required>
+            </div>
+            <div class="form-group">
+                <label for="duration">Exercise Duration (minutes):</label>
+                <input type="number" id="duration" name="duration" required>
+            </div>
+            <div class="form-group">
+                <label for="heart_rate">Heart Rate:</label>
+                <input type="number" id="heart_rate" name="heart_rate" required>
+            </div>
+            <div class="form-group">
+                <label for="body_temp">Body Temperature (°C):</label>
+                <input type="number" id="body_temp" name="body_temp" step="0.1" required>
+            </div>
+            <button type="submit">Predict Calories</button>
+        </form>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#caloriesForm').submit(function(event) {
+                event.preventDefault();
+
+                var form_data = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '/predict',  // Replace with your backend endpoint
+                    data: form_data,
+                    success: function(response) {
+                        $('#result').html('<h3>Predicted Calories: ' + response.result + '</h3>');
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        alert('Error predicting calories!');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
