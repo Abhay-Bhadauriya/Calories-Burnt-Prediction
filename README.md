@@ -27,6 +27,6 @@ The trained models are evaluated using metrics like R² score and Mean Absolute 
 
 ## Installation
 
-### Prerequisites
+Prerequisites
 - Python 3.7 or higher
 - `pip` package manager
